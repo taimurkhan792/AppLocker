@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity"
+    android:background="#48484b">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#434447"
+        android:id="@+id/relativeLayout"
+        android:layout_alignTop="@+id/lockSettings"
+        android:layout_alignRight="@+id/lockSettings"
+        android:layout_alignEnd="@+id/lockSettings">
+
+        <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/go_booster"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="58dp"
+            android:background="@drawable/ic_go_booster" />
+
+        <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/goPerms"
+            android:background="@drawable/ic_security"
+            android:layout_below="@+id/go_booster"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/unlock_all"
+            android:background="@drawable/ic_unlocked"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:id="@+id/lock_all"
+            android:background="@drawable/ic_locked"
+            android:layout_above="@+id/unlock_all"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:id="@+id/view">
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <ListView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:id="@+id/listApps"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3" />
+
+    <TextView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/lockSettings"
+        android:background="@drawable/ic_action_settings"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/apps"
+        android:id="@+id/textView3"
+        android:textColor="#6070c4"
+        android:textSize="16dp"
+        android:layout_alignTop="@+id/relativeLayout"
+        android:layout_toRightOf="@+id/relativeLayout"
+        android:layout_toEndOf="@+id/relativeLayout"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp" />
+
+</RelativeLayout>

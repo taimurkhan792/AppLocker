@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
+
+
+    <Button
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:text="1"
+        android:id="@+id/one"
+        android:textColor="#fff"
+        android:background="@drawable/pin_button"
+        android:textSize="18dp"
+        android:layout_below="@+id/pin_enter"
+        android:layout_toLeftOf="@+id/five"
+        android:layout_toStartOf="@+id/five" />
+
+    <Button
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:text="2"
+        android:id="@+id/two"
+        android:layout_alignTop="@+id/one"
+        android:layout_toRightOf="@+id/one"
+        android:layout_toEndOf="@+id/one"
+        android:layout_marginLeft="25dp"
+        android:textColor="#fff"
+        android:background="@drawable/pin_button"
+        android:textSize="18dp" />
+
+    <Button
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:text="3"
+        android:id="@+id/three"
+        android:layout_alignTop="@+id/two"
+        android:layout_toRightOf="@+id/two"
+        android:layout_toEndOf="@+id/two"
+        android:layout_marginLeft="25dp"
+        android:textColor="#fff"
+        android:background="@drawable/pin_button"
+        android:textSize="18dp" />
+
+    <Button
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:text="4"
+        android:id="@+id/four"
+        android:layout_below="@+id/one"
+        android:layout_toLeftOf="@+id/two"
+        android:layout_toStartOf="@+id/two"
+        android:layout_marginTop="20dp"
+        android:textColor="#fff"
+        android:background="@drawable/pin_button"
+        android:textSize="18dp" />
+
+    <Button
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:text="5"
+        android:id="@+id/five"
+        android:textColor="#fff"
+        android:background="@drawable/pin_button"
+        android:layout_alignTop="@+id/four"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="25dp"
+        android:textSize="18dp" />
+
+    <Button
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:text="6"
+        android:id="@+id/six"
+        android:textColor="#fff"
+        android:background="@drawable/pin_button"
+        android:layout_alignTop="@+id/five"
+        android:layout_alignLeft="@+id/three"
+        android:layout_alignStart="@+id/three"
+        android:textSize="18dp" />
+
+    <Button
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:text="7"
+        android:id="@+id/seven"
+        android:textColor="#fff"
+        android:background="@drawable/pin_button"
+        android:layout_below="@+id/four"
+        android:layout_toLeftOf="@+id/two"
+        android:layout_toStartOf="@+id/two"
+        android:layout_marginTop="20dp"
+        android:textSize="18dp" />
+
+    <Button
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:text="8"
+        android:id="@+id/eight"
+        android:textColor="#fff"
+        android:background="@drawable/pin_button"
+        android:layout_alignTop="@+id/seven"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="25dp"
+        android:textSize="18dp" />
+
+    <Button
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:text="9"
+        android:id="@+id/nine"
+        android:textColor="#fff"
+        android:background="@drawable/pin_button"
+        android:layout_alignTop="@+id/eight"
+        android:layout_alignLeft="@+id/six"
+        android:layout_alignStart="@+id/six"
+        android:textSize="18dp" />
+
+    <Button
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:text="0"
+        android:id="@+id/zero"
+        android:textColor="#fff"
+        android:background="@drawable/pin_button"
+        android:layout_below="@+id/seven"
+        android:layout_centerHorizontal="true"
+        android:textSize="18dp" />
+
+    <Button
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:id="@+id/done"
+        android:textColor="#fff"
+        android:background="@drawable/ic_done"
+        android:layout_below="@+id/nine"
+        android:layout_alignLeft="@+id/nine"
+        android:layout_alignStart="@+id/nine" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:ems="10"
+        android:id="@+id/pin_enter"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="140dp"
+        android:layout_alignLeft="@+id/one"
+        android:layout_alignStart="@+id/one"
+        android:textColor="#fff"
+        android:layout_toLeftOf="@+id/delete"
+        android:layout_toStartOf="@+id/delete" />
+
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/delete"
+        android:background="@android:drawable/ic_input_delete"
+        android:layout_alignTop="@+id/pin_enter"
+        android:layout_alignRight="@+id/three"
+        android:layout_alignEnd="@+id/three" />
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/appIconPIN"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="AppLocker"
+        android:id="@+id/appNameTv"
+        android:textColor="#fff"
+        android:layout_below="@+id/appIconPIN"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-4481645276167910/1189221382"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
+
+</RelativeLayout>

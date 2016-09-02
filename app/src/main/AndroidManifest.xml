@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.electroware.applocker">
+
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"/>
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGED"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-feature android:name="android.hardware.camera2.full" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BIND_DEVICE_ADMIN"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <activity
+            android:name=".EnterActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".UnlockActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Splash"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SetPatternLockActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SetLockTypeActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".EnterNormalPIN"
+            android:label="@string/app_name"
+            android:excludeFromRecents="true"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SetNormalPIN"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".EnterPatternLock"
+            android:excludeFromRecents="true"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".EnterFingerprintActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/settings"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RequestPermission"
+            android:excludeFromRecents="true"
+            android:label="@string/security"
+            android:theme="@style/AppTheme2">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <receiver android:name=".ScreenReciever">
+            <intent-filter>
+                <action android:name="android.intent.action.SCREEN_OFF"/>
+                <action android:name="android.intent.action.SCREEN_ON"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".BootReciever">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+        <service android:name=".LockService"
+            android:process=":locker"
+            android:enabled="true"/>
+        <service android:name=".ScreenService"
+            android:process=":locker"
+            android:enabled="true"/>
+        <receiver
+            android:name=".DeviceAdmin"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data android:name="android.app.device_admin"
+                android:resource="@xml/device_admin" />
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+                <action android:name="android.app.action.ACTION_DEVICE_ADMIN_DISABLE_REQUESTED" />
+                <action android:name="android.app.action.ACTION_DEVICE_ADMIN_DISABLED" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

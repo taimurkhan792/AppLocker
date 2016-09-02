@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">AppLocker</string>
+    <string name="action_settings">Settings</string>
+    <string name="help_time_pin">Time based PIN code. For example time is 12:45 (24 hours) , PIN is 5421</string>
+    <string name="select_lock_type">Select your lock type</string>
+    <string name="wrong_pattern">Wrong Pattern</string>
+    <string name="wrong_pin">Wrong PIN</string>
+    <string name="security">Security</string>
+    <string name="pattern">Pattern</string>
+    <string name="apps">Applications</string>
+    <string name="next">Next</string>
+    <string name="enter_pattern">Draw your pattern</string>
+    <string name="pin">PIN</string>
+    <string name="settings">Settings</string>
+    <string name="reset_locked_apps">Reset Locked Apps</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="all_apps_locked">All apps locked</string>
+    <string name="all_apps_unlocked">All apps unlocked</string>
+    <string name="not_matched">Passwords not matched</string>
+    <string name="slogan">Ever for better security</string>
+    <string name="about">About</string>
+    <string name="pin_setted">PIN has been setted successfully</string>
+    <string name="req">Please give device admin permission for prevent uninstall and keep privacy</string>
+    <string name="uninstall_protect_is_active">Uninstall protect is active</string>
+    <string name="uninstall_protect_is_not_active">Uninstall protect is not active\n Tap for active it</string>
+</resources>

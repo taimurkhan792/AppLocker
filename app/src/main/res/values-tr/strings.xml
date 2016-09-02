@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Uygulama Kilitleyici</string>
+    <string name="action_settings">Ayarlar</string>
+    <string name="help_time_pin">Time based PIN code. For example time is 12:45 (24 hours) , PIN is 5421</string>
+    <string name="select_lock_type">Kilit Şeklinizi seçin</string>
+    <string name="wrong_pattern">Yanlış desen</string>
+    <string name="wrong_pin">Yanlış PIN</string>
+    <string name="security">Güvenlik</string>
+    <string name="pattern">Desen</string>
+    <string name="apps">Uygulamalar</string>
+    <string name="next">İleri</string>
+    <string name="enter_pattern">Deseninizi çizin</string>
+    <string name="pin">PIN</string>
+    <string name="settings">Ayarlar</string>
+    <string name="reset_locked_apps">Kilitlenmiş uygulamaları sıfırla</string>
+    <string name="reset_password">Şifreyi sıfırla</string>
+    <string name="not_matched">Şifreler eşleşmedi</string>
+    <string name="all_apps_locked">Tüm uygulamalar kilitlendi</string>
+    <string name="all_apps_unlocked">Tüm uygulamaların kilidi kaldırıldı</string>
+    <string name="pin_setted">PIN başarıyla ayarlandı</string>
+    <string name="slogan">Her zamankinden daha iyi güvenlik için</string>
+    <string name="req">Lütfen daha fazla koruma ve gizlilik için cihaz yöneticisi iznini verin. Yabancı birinin uygulamayı kaldırmasını önler.</string>
+    <string name="uninstall_protect_is_active">Uygulamayı kaldırma koruması aktif</string>
+    <string name="about">Hakkında</string>
+    <string name="uninstall_protect_is_not_active">Uygulamayı kaldırma koruması aktif değil\n Aktifleştirmek için buraya dokunun</string>
+</resources>

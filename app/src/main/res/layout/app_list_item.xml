@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/app_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="3dp"
+        android:scaleType="centerCrop" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:descendantFocusability="blocksDescendants"
+        android:paddingLeft="5dp" >
+
+        <android.support.v7.widget.SwitchCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lockApp"
+            android:layout_gravity="right"
+            android:textColor="#fff"
+            android:layout_alignParentRight="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/app_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:layout_marginTop="5dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
