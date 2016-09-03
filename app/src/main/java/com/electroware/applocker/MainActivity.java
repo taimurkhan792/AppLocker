@@ -271,11 +271,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onResume() {
         super.onResume();
-        finish();
     }
     @Override
     public void onDestroy() {
         super.onDestroy();
+        finish();
     }
     private void startLockService() {
         Intent i = new Intent(MainActivity.this, LockService.class);
