@@ -154,12 +154,18 @@ public class EnterNormalPIN extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 a = pin_enter.getText().toString();
-                if (PINManager.getPIN().equals(a)){
-                    saveState.saveState("false");
-                    startApp(app);
-                    finish();
+                if (abc){
+                    if (PINManager.getPIN().equals(a)){
+                        startMain();
+                    }
                 }else {
-                    Toast.makeText(EnterNormalPIN.this,getString(R.string.wrong_pin),Toast.LENGTH_LONG).show();
+                    if (PINManager.getPIN().equals(a)){
+                        saveState.saveState("false");
+                        startApp(app);
+                        finish();
+                    }else {
+                        Toast.makeText(EnterNormalPIN.this,getString(R.string.wrong_pin),Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });

@@ -62,12 +62,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         listApps.setItemsCanFocus(true);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                restartService();
-            }
-        }).start();
+        if(!isMyServiceRunning(LockService.class)){
+            startLockService();
+        }
+
+        if (!isMyServiceRunning(ScreenService.class)){
+            startService(new Intent(context,ScreenService.class));
+        }
+
 
         mInterstitialAd = new InterstitialAd(this);
 
@@ -83,10 +85,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 showInterstitial();
             }
         });
-
-        if (!isMyServiceRunning(ScreenService.class)){
-            startService(new Intent(context,ScreenService.class));
-        }
 
         lockAll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -269,19 +267,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onPause() {
         super.onPause();
-        startLockService();
     }
     @Override
     public void onResume() {
         super.onResume();
+        finish();
     }
     @Override
     public void onDestroy() {
         super.onDestroy();
-        startScreenService();
-        startLockService();
     }
-
     private void startLockService() {
         Intent i = new Intent(MainActivity.this, LockService.class);
         startService(i);

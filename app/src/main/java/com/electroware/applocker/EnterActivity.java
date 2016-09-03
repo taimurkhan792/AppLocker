@@ -1,14 +1,9 @@
 package com.electroware.applocker;
 
 import android.app.Activity;
-import android.app.usage.UsageStats;
-import android.app.usage.UsageStatsManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.Settings;
-import java.util.List;
 
 /**
  * Created by user on 31.08.2016.
