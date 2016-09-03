@@ -31,15 +31,12 @@ public class LockService extends Service {
     private String current_app = null;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
-    private int mInterval = 1755; // 5 seconds by default, can be changed later
+    private int mInterval = 1755;
     private Handler mHandler;
 
     @Override
     public void onCreate(){
         super.onCreate();
-        context = LockService.this;
-        preferences=context.getSharedPreferences("chosen_apps", context.MODE_PRIVATE);
-        editor = preferences.edit();
         mHandler = new Handler();
         startRepeatingTask();
     }
@@ -48,6 +45,9 @@ public class LockService extends Service {
         public void run() {
             try {
                 try {
+                    context = LockService.this;
+                    preferences=context.getSharedPreferences("chosen_apps", context.MODE_PRIVATE);
+                    editor = preferences.edit();
                     saveState = new SaveState(context);
                     current_app = getRecentApps(context);
                     boolean lock_apps = saveState.getState();
