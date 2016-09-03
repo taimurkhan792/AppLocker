@@ -19,6 +19,7 @@
     <string name="all_apps_unlocked">Tüm uygulamaların kilidi kaldırıldı</string>
     <string name="pin_setted">PIN başarıyla ayarlandı</string>
     <string name="slogan">Her zamankinden daha iyi güvenlik için</string>
+    <string name="please_give_usage_Stats">Lütfen kullanım istatistikleri iznini verin aksi takdirde uygulamaları kitleyemeyiz</string>
     <string name="req">Lütfen daha fazla koruma ve gizlilik için cihaz yöneticisi iznini verin. Yabancı birinin uygulamayı kaldırmasını önler.</string>
     <string name="uninstall_protect_is_active">Uygulamayı kaldırma koruması aktif</string>
     <string name="about">Hakkında</string>

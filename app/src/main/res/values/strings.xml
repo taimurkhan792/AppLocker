@@ -19,6 +19,7 @@
     <string name="not_matched">Passwords not matched</string>
     <string name="slogan">Ever for better security</string>
     <string name="about">About</string>
+    <string name="please_give_usage_Stats">Please give usage stats permission, we need this for locking apps.</string>
     <string name="pin_setted">PIN has been setted successfully</string>
     <string name="req">Please give device admin permission for prevent uninstall and keep privacy</string>
     <string name="uninstall_protect_is_active">Uninstall protect is active</string>

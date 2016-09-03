@@ -30,6 +30,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
+
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -70,6 +72,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             startService(new Intent(context,ScreenService.class));
         }
 
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startReqUsageStat();
+                Toast.makeText(context,getString(R.string.please_give_usage_Stats),Toast.LENGTH_LONG).show();
+            }
+        }, 3000);
 
         mInterstitialAd = new InterstitialAd(this);
 
@@ -148,7 +158,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CAMERA_PERMISSION);
         }
 
-        startReqUsageStat();
 
     }
     private void startReqUsageStat(){
@@ -156,14 +165,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             if (!checkUsageStatsPermission()){
                 Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
                 startActivity(intent);
-                finish();
             }
         }
     } public boolean checkUsageStatsPermission(){
         final UsageStatsManager usageStatsManager = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
         final List<UsageStats> queryUsageStats = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, 0,  System.currentTimeMillis());
         return !queryUsageStats.isEmpty();
-
     }
     public void startApplication(String packageName)
     {

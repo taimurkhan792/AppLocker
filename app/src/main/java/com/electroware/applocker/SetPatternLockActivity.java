@@ -43,7 +43,6 @@ public class SetPatternLockActivity extends AppCompatActivity {
             }
         });
 
-
         save_pattern.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
