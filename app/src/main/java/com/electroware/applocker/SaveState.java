@@ -33,7 +33,7 @@ public class SaveState {
 
         }
        
-        return text.toString().contains("true")İ;
+        return text.toString().contains("true");
     }
     public void saveState(String name){
         try {
