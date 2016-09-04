@@ -32,13 +32,8 @@ public class SaveState {
         catch (IOException e) {
 
         }
-        if (text.toString().contains("true")){
-            b = true;
-        }
-        if (text.toString().contains("false")){
-            b = false;
-        }
-        return b;
+       
+        return text.toString().contains("true")İ;
     }
     public void saveState(String name){
         try {
