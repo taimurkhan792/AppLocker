@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     TextView goSettings;
     ListView listApps;
     Context context;
-    Button go_AndroBooster,goPerms,lockAll,unlockAll;
+    Button go_AndroBooster,goPerms,lockAll,unlockAll,goLogs;
     InterstitialAd mInterstitialAd;
 
     @Override
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         goPerms = (Button) findViewById(R.id.goPerms);
         lockAll = (Button) findViewById(R.id.lock_all);
         unlockAll = (Button) findViewById(R.id.unlock_all);
+        goLogs = (Button) findViewById(R.id.goLogs);
         goSettings = (TextView) findViewById(R.id.lockSettings);
 
         listApps.setItemsCanFocus(true);
@@ -126,6 +127,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, RequestPermission.class);
+                startActivity(i);
+            }
+        });
+        goLogs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, LogsActivity.class);
                 startActivity(i);
             }
         });

@@ -50,6 +50,7 @@ public class EnterPatternLock extends AppCompatActivity {
     SaveState saveState;
     String main;
     boolean abc;
+    SaveLogs saveLogs;
     int WRONG_PATTERN_COUNTER = 0;
     private AdView mAdView;
 
@@ -67,7 +68,7 @@ public class EnterPatternLock extends AppCompatActivity {
         } catch (Exception e) {
 
         }
-
+        saveLogs = new SaveLogs(this);
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
                 .build();
@@ -91,17 +92,20 @@ public class EnterPatternLock extends AppCompatActivity {
                 super.onPatternDetected(pattern, SimplePattern);
                 if (getPattern().equals(SimplePattern)) {
                     if (abc) {
+                        saveLogs.saveLogs(getString(R.string.app_name),true);
                         startMain();
                     } else {
                         saveState.saveState("false");
+                        saveLogs.saveLogs(app,true);
                         startApp(app);
                         finish();
                     }
                 } else {
                     materialLockView.clearPattern();
+                    saveLogs.saveLogs(app,false);
                     WRONG_PATTERN_COUNTER = WRONG_PATTERN_COUNTER + 1;
                     if (WRONG_PATTERN_COUNTER == 3) {
-
+                        finish();
                     }
                     Toast.makeText(context, getString(R.string.wrong_pattern), Toast.LENGTH_SHORT).show();
                 }
@@ -123,18 +127,15 @@ public class EnterPatternLock extends AppCompatActivity {
         super.onResume();
 
     }
-
     private void startMain() {
         Intent i = new Intent(EnterPatternLock.this, MainActivity.class);
         startActivity(i);
         finish();
     }
-
     @Override
     public void onBackPressed() {
 
     }
-
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -144,14 +145,11 @@ public class EnterPatternLock extends AppCompatActivity {
 
         }
     }
-
-
     @Override
     protected void onPause() {
 
         super.onPause();
     }
-
     private Drawable getAppIcon(String packagename) {
         Drawable icon = null;
         try {

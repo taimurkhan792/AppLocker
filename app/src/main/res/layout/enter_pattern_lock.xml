@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2b3c9b"
+    android:background="@color/black_gray"
     android:id="@+id/re"
     tools:context=".EnterPatternLock">
 

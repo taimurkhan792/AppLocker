@@ -11,6 +11,11 @@
     <string name="next">Next</string>
     <string name="enter_pattern">Draw your pattern</string>
     <string name="pin">PIN</string>
+    <string name="date">Date</string>
+    <string name="entered_successfully">Entered successfully</string>
+    <string name="enter_failed">Wrong password</string>
+    <string name="entered_app">App:</string>
+    <string name="logs">Logs</string>
     <string name="settings">Settings</string>
     <string name="reset_locked_apps">Reset Locked Apps</string>
     <string name="reset_password">Reset Password</string>

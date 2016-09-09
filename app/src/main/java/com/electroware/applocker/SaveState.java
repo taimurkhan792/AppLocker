@@ -18,7 +18,6 @@ public class SaveState {
         context = context1;
     }
     public boolean getState(){
-        boolean b = false;
         File file = new File("/data/data/com.electroware.applocker/files/state");
         StringBuilder text = new StringBuilder();
         try {
@@ -32,13 +31,7 @@ public class SaveState {
         catch (IOException e) {
 
         }
-        if (text.toString().contains("true")){
-            b = true;
-        }
-        if (text.toString().contains("false")){
-            b = false;
-        }
-        return b;
+        return text.toString().contains("true");
     }
     public void saveState(String name){
         try {

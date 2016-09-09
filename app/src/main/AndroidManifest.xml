@@ -75,7 +75,7 @@
             android:name=".EnterNormalPIN"
             android:label="@string/app_name"
             android:excludeFromRecents="true"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppThemeDark">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -92,7 +92,7 @@
             android:name=".EnterPatternLock"
             android:excludeFromRecents="true"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppThemeDark">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -110,6 +110,14 @@
             android:name=".SettingsActivity"
             android:excludeFromRecents="true"
             android:label="@string/settings"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LogsActivity"
+            android:label="@string/logs"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />

@@ -12,6 +12,11 @@
     <string name="enter_pattern">Deseninizi çizin</string>
     <string name="pin">PIN</string>
     <string name="settings">Ayarlar</string>
+    <string name="date">Tarih</string>
+    <string name="entered_successfully">Giriş başarılı</string>
+    <string name="enter_failed">Yanlış şifre</string>
+    <string name="logs">Kayıtlar</string>
+    <string name="entered_app">Uygulama:</string>
     <string name="reset_locked_apps">Kilitlenmiş uygulamaları sıfırla</string>
     <string name="reset_password">Şifreyi sıfırla</string>
     <string name="not_matched">Şifreler eşleşmedi</string>

@@ -30,6 +30,7 @@ public class EnterNormalPIN extends AppCompatActivity {
     private AdView mAdView;
     ImageView appIconIv;
     TextView appNameTv;
+    SaveLogs saveLogs;
 
     @Override
     protected void onCreate(Bundle bundle){
@@ -41,6 +42,7 @@ public class EnterNormalPIN extends AppCompatActivity {
         mAdView = (AdView) findViewById(R.id.adView2);
         AdRequest adRequest = new AdRequest.Builder()
                 .build();
+        saveLogs = new SaveLogs(this);
         mAdView.loadAd(adRequest);
         app = b.getString("app");
         try {
@@ -156,15 +158,18 @@ public class EnterNormalPIN extends AppCompatActivity {
                 a = pin_enter.getText().toString();
                 if (abc){
                     if (PINManager.getPIN().equals(a)){
+                        saveLogs.saveLogs(getString(R.string.app_name),true);
                         startMain();
                     }
                 }else {
                     if (PINManager.getPIN().equals(a)){
                         saveState.saveState("false");
+                        saveLogs.saveLogs(app,true);
                         startApp(app);
                         finish();
                     }else {
                         Toast.makeText(EnterNormalPIN.this,getString(R.string.wrong_pin),Toast.LENGTH_LONG).show();
+                        saveLogs.saveLogs(app,false);
                     }
                 }
             }
