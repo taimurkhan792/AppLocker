@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import android.Manifest;
 import android.app.ActivityManager;
-import android.app.ProgressDialog;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.ComponentName;
@@ -28,13 +27,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
-
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     private PackageManager packageManager = null;
@@ -46,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     Context context;
     Button go_AndroBooster,goPerms,lockAll,unlockAll,goLogs;
     InterstitialAd mInterstitialAd;
+    MaterialProgressBar loadingBar;
+    ColorManager colorManager;
+    RelativeLayout mainLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,24 +56,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
         context = MainActivity.this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        colorManager = new ColorManager(this);
         setSupportActionBar(toolbar);
+        mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
         packageManager = getPackageManager();
         listApps = (ListView) findViewById(R.id.listApps);
         go_AndroBooster = (Button) findViewById(R.id.go_booster);
         goPerms = (Button) findViewById(R.id.goPerms);
         lockAll = (Button) findViewById(R.id.lock_all);
         unlockAll = (Button) findViewById(R.id.unlock_all);
+        loadingBar = (MaterialProgressBar) findViewById(R.id.loadingBar);
         goLogs = (Button) findViewById(R.id.goLogs);
         goSettings = (TextView) findViewById(R.id.lockSettings);
-
         listApps.setItemsCanFocus(true);
 
         if(!isMyServiceRunning(LockService.class)){
-            startLockService();
-        }
-
-        if (!isMyServiceRunning(ScreenService.class)){
-            startService(new Intent(context,ScreenService.class));
+            context.startService(new Intent(context, LockService.class));
         }
 
         final Handler handler = new Handler();
@@ -78,24 +79,26 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void run() {
                 startReqUsageStat();
-                Toast.makeText(context,getString(R.string.please_give_usage_Stats),Toast.LENGTH_LONG).show();
             }
         }, 3000);
 
         mInterstitialAd = new InterstitialAd(this);
 
-        mInterstitialAd.setAdUnitId("ca-app-pub-4481645276167910/8991689789");
 
-        AdRequest adRequest = new AdRequest.Builder()
-                .build();
+                mInterstitialAd.setAdUnitId("ca-app-pub-4481645276167910/8991689789");
 
-        mInterstitialAd.loadAd(adRequest);
+                AdRequest adRequest = new AdRequest.Builder()
+                        .build();
 
-        mInterstitialAd.setAdListener(new AdListener() {
-            public void onAdLoaded() {
-                showInterstitial();
-            }
-        });
+                mInterstitialAd.loadAd(adRequest);
+
+                mInterstitialAd.setAdListener(new AdListener() {
+                    public void onAdLoaded() {
+                        showInterstitial();
+                    }
+                });
+
+
 
         lockAll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,24 +158,45 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         listadaptor = new ApplicationAdapter(MainActivity.this,
                 R.layout.app_list_item, applist);
 
+        final Handler handler1 = new Handler();
+        handler1.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                new LoadApplications().execute();
+            }
+        }, 1500);
+        updateTheme();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CAMERA_PERMISSION);
+                }
+                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CAMERA_PERMISSION);
+                }
+            }
+        }).start();
 
-        new LoadApplications().execute();
 
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CAMERA_PERMISSION);
+    }
+    private void updateTheme(){
+        if (colorManager.isLight()){
+            mainLayout.setBackgroundColor(getColor(R.color.white));
         }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CAMERA_PERMISSION);
-        }
-
-
+    }
+    private void startLockService() {
+        context.startService(new Intent(context, LockService.class));
+    }
+    private void stopLockService() {
+        context.stopService(new Intent(context, LockService.class));
     }
     private void startReqUsageStat(){
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             if (!checkUsageStatsPermission()){
                 Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
                 startActivity(intent);
+                Toast.makeText(context,getString(R.string.please_give_usage_Stats),Toast.LENGTH_LONG).show();
             }
         }
     } public boolean checkUsageStatsPermission(){
@@ -218,7 +242,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         startActivity(intent);
     }
-
     private void showInMarket(String packageName)
     {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName));
@@ -241,16 +264,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
         return false;
     }
-
     private class LoadApplications extends AsyncTask<Void, Void, Void> {
-        private ProgressDialog progress = null;
-
         @Override
         protected Void doInBackground(Void... params) {
             applist = checkForLaunchIntent(packageManager.getInstalledApplications(PackageManager.GET_META_DATA));
             listadaptor = new ApplicationAdapter(MainActivity.this,
                     R.layout.app_list_item, applist);
-
+            if(!isMyServiceRunning(LockService.class)){
+                startLockService();
+            }
             return null;
         }
 
@@ -263,14 +285,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         protected void onPostExecute(Void result) {
             listApps.setAdapter(listadaptor);
             listApps.setOnItemClickListener(MainActivity.this);
-            progress.dismiss();
+            loadingBar.setVisibility(View.INVISIBLE);
             super.onPostExecute(result);
         }
 
         @Override
         protected void onPreExecute() {
-            progress = ProgressDialog.show(MainActivity.this, null,
-                    "Loading application info...");
+            loadingBar.setVisibility(View.VISIBLE);
             super.onPreExecute();
         }
 
@@ -279,6 +300,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             super.onProgressUpdate(values);
         }
     }
+    String[] alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+
     @Override
     public void onPause() {
         super.onPause();
@@ -290,24 +313,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onDestroy() {
         super.onDestroy();
-        finish();
-    }
-    private void startLockService() {
-        Intent i = new Intent(MainActivity.this, LockService.class);
-        startService(i);
-    }
-    private void startScreenService() {
-        Intent i = new Intent(MainActivity.this, ScreenService.class);
-        startService(i);
-    }
-    private void stopLockService() {
-        Intent i = new Intent(MainActivity.this, LockService.class);
-        stopService(i);
-    }
-    private void restartService() {
-        Intent i = new Intent(MainActivity.this, LockService.class);
-        stopService(i);
-        startService(i);
     }
     private List<ApplicationInfo> checkForLaunchIntent(List<ApplicationInfo> list) {
         ArrayList<ApplicationInfo> applist = new ArrayList<ApplicationInfo>();
@@ -318,7 +323,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         if (!info.packageName.contains("launcher")) {
                             if (!info.packageName.contains("trebuchet")) {
                                 if (null != packageManager.getLaunchIntentForPackage(info.packageName)) {
-                                    applist.add(info);
+                                     applist.add(info);
                                 }
                             }
                         }
@@ -331,7 +336,4 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         return applist;
     }
-
-
-
 }

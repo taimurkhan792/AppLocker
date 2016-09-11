@@ -15,20 +15,12 @@
         android:layout_marginRight="15dp"
         android:src="@android:drawable/ic_menu_delete" />
 
-    <TextView
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Tarih: 08092016...  Giriş yapıldı Uygulama: WhatsApp"
-        android:id="@+id/showLogs"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:id="@+id/log_list"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#fff"
-        android:textSize="15dp"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

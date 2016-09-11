@@ -31,15 +31,17 @@ public class LockService extends Service {
     private String current_app = null;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
-    private int mInterval = 1755;
+    private int mInterval = 1000;
     private Handler mHandler;
 
     @Override
-    public void onCreate(){
-        super.onCreate();
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        super.onStartCommand(intent, flags, startId);
         mHandler = new Handler();
         startRepeatingTask();
+        return START_STICKY;
     }
+
     Runnable mStatusChecker = new Runnable() {
         @Override
         public void run() {
@@ -51,21 +53,17 @@ public class LockService extends Service {
                     saveState = new SaveState(context);
                     current_app = getRecentApps(context);
                     boolean lock_apps = saveState.getState();
-                    Log.d("current apps", current_app);
                     if (lock_apps){
                         if (preferences.getBoolean(current_app,false)){
                             locked_app = getRecentApps(context);
-                            Log.d("locked app",locked_app);
                             startUnlockActivity(getRecentApps(context));
                         }
                     }
                     if (!lock_apps){
                         if (!current_app.equals(locked_app)){
-                            Log.d("11111","hm");
                             saveState.saveState("true");
                         }
                         if (current_app.equals(locked_app)){
-                            Log.d("running",locked_app);
                         }
                     }
                 }catch (Exception e){
@@ -73,7 +71,6 @@ public class LockService extends Service {
                 }
 
             } finally {
-
                 mHandler.postDelayed(mStatusChecker, mInterval);
             }
         }
@@ -142,9 +139,4 @@ public class LockService extends Service {
         super.onDestroy();
         stopRepeatingTask();
     }
-
-
-
-
-
 }

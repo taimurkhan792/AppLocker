@@ -32,7 +32,7 @@
         android:layout_height="65dp"
         android:text="NEXT"
         android:id="@+id/save_pattern_cont"
-        android:background="#1f2c7c"
+        android:background="#105ca4"
         android:textColor="#fff"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

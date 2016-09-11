@@ -56,8 +56,9 @@
         android:layout_marginTop="10dp"
         android:layout_alignRight="@+id/textView5"
         android:layout_alignEnd="@+id/textView5"
-        android:layout_alignLeft="@+id/appIconPattern"
-        android:layout_alignStart="@+id/appIconPattern" />
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_alignStart="@+id/textView5"
+        android:textAlignment="center" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

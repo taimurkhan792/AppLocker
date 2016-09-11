@@ -174,15 +174,15 @@
         android:layout_marginTop="20dp" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="AppLocker"
         android:id="@+id/appNameTv"
         android:textColor="#fff"
-        android:layout_below="@+id/appIconPIN"
+        android:layout_above="@+id/delete"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
+        android:textAlignment="center" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView2"

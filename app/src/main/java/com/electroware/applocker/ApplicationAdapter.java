@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.os.Handler;
+import android.os.Process;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ public class ApplicationAdapter extends ArrayAdapter<ApplicationInfo>{
     private PackageManager packageManager;
     List<String> allAppList = null;
     List<String> lockedAppList = null;
+    ColorManager colorManager;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
 
@@ -33,6 +36,7 @@ public class ApplicationAdapter extends ArrayAdapter<ApplicationInfo>{
         super(context, textViewResourceId, appsList);
         this.context = context;
         allAppList = new ArrayList<String>();
+        colorManager = new ColorManager(context);
         lockedAppList = new ArrayList<String>();
         this.appsList = appsList;
         packageManager = context.getPackageManager();
@@ -65,7 +69,6 @@ public class ApplicationAdapter extends ArrayAdapter<ApplicationInfo>{
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = layoutInflater.inflate(R.layout.app_list_item, null);
         }
-
         final ApplicationInfo data = appsList.get(position);
         if (null != data) {
             TextView appName = (TextView) view.findViewById(R.id.app_name);
@@ -75,30 +78,39 @@ public class ApplicationAdapter extends ArrayAdapter<ApplicationInfo>{
             appName.setText(data.loadLabel(packageManager));
             iconview.setImageDrawable(data.loadIcon(packageManager));
 
+
             if(preferences.getBoolean(data.packageName,false)){
                 lockApp.setChecked(true);
             }
             else{
                 lockApp.setChecked(false);
             }
-
-
-
+            if (colorManager.isLight()){
+                appName.setTextColor(context.getColor(R.color.black_gray));
+            }
         lockApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                context.stopService(new Intent(context, LockService.class));
                 if (lockApp.isChecked()){
                     Log.d("tıklanmış",""+data.packageName);
-
                     editor.putBoolean(data.packageName,true).apply();
-                }
+                    }
                 if (!lockApp.isChecked()){
                     Log.d("silinmiş",""+data.packageName);
                     editor.putBoolean(data.packageName,false).apply();
-                }
+                    }
+                context.startService(new Intent(context, LockService.class));
             }
         });
     }
     return view;
 }
+
+    private void startLockService() {
+        context.startService(new Intent(context, LockService.class));
+    }
+    private void stopLockService() {
+        context.stopService(new Intent(context, LockService.class));
+    }
 }

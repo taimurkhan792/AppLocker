@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity"
-    android:background="#48484b">
+    android:background="#48484b"
+    android:id="@+id/mainLayout">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,6 +17,8 @@
         android:layout_alignTop="@+id/lockSettings"
         android:layout_alignRight="@+id/lockSettings"
         android:layout_alignEnd="@+id/lockSettings">
+
+
 
         <Button
             android:layout_width="55dp"
@@ -108,12 +111,23 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/apps"
         android:id="@+id/textView3"
-        android:textColor="#6070c4"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="16dp"
         android:layout_alignTop="@+id/relativeLayout"
         android:layout_toRightOf="@+id/relativeLayout"
         android:layout_toEndOf="@+id/relativeLayout"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp" />
+
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+        style="@style/Widget.MaterialProgressBar.ProgressBar"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        app:mpb_progressStyle="circular"
+        android:id="@+id/loadingBar"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_centerVertical="true"
+        android:indeterminate="true" />
 
 </RelativeLayout>

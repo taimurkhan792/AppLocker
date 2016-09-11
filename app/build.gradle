@@ -8,8 +8,8 @@ android {
         applicationId "com.electroware.applocker"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 105
-        versionName "1.0.5"
+        versionCode 108
+        versionName "1.0.8"
     }
     buildTypes {
         release {
@@ -30,5 +30,6 @@ dependencies {
     compile 'com.github.ajalt.reprint:core:2.8.0@aar'
     compile 'com.github.ajalt.reprint:reprint_spass:2.8.0@aar'
     compile 'com.github.ajalt.reprint:reactive:2.8.0@aar'
+    compile 'me.zhanghai.android.materialprogressbar:library:1.1.7'
     compile 'com.google.android.gms:play-services-ads:9.4.0'
 }

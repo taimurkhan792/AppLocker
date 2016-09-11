@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 
 import java.util.List;
 import java.util.SortedMap;
@@ -34,13 +35,18 @@ public class RequestPermission extends AppCompatActivity {
     Button reqDeviceAdmin;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
+    ColorManager colorManager;
+    RelativeLayout reqLayout;
     boolean ab;
     @Override
     protected void onCreate(Bundle bundle){
         super.onCreate(bundle);
         setContentView(R.layout.request_permission);
         Intent iin= getIntent();
+        colorManager = new ColorManager(this);
+        reqLayout = (RelativeLayout) findViewById(R.id.reqLayout);
         Bundle b = iin.getExtras();
+        updateTheme();
         preferences=RequestPermission.this.getSharedPreferences("device_admin", RequestPermission.this.MODE_PRIVATE);
         editor = preferences.edit();
         try {
@@ -72,6 +78,11 @@ public class RequestPermission extends AppCompatActivity {
                 }
             }
         });
+    }
+    private void updateTheme(){
+        if (colorManager.isLight()){
+            reqLayout.setBackgroundColor(getColor(R.color.white));
+        }
     }
     @Override
     public void onResume(){

@@ -46,7 +46,7 @@
         android:layout_height="60dp"
         android:text="@string/next"
         android:id="@+id/strt"
-        android:background="#25317d"
+        android:background="#105ca4"
         android:textColor="#fff"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"

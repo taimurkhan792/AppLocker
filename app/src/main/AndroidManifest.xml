@@ -108,7 +108,6 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:excludeFromRecents="true"
             android:label="@string/settings"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -125,7 +124,6 @@
         </activity>
         <activity
             android:name=".RequestPermission"
-            android:excludeFromRecents="true"
             android:label="@string/security"
             android:theme="@style/AppTheme2">
             <intent-filter>
@@ -148,10 +146,9 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
         <service android:name=".LockService"
-            android:process=":locker"
             android:enabled="true"/>
         <service android:name=".ScreenService"
-            android:process=":locker"
+            android:process=":screenlistener"
             android:enabled="true"/>
         <receiver
             android:name=".DeviceAdmin"

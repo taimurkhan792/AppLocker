@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#494a4d">
+    android:background="#494a4d"
+    android:id="@+id/s_layout">
 
     <ListView
         android:layout_width="wrap_content"
@@ -23,16 +24,15 @@
         android:layout_alignLeft="@+id/settings_list"
         android:layout_alignStart="@+id/settings_list"
         android:layout_marginTop="25dp"
-        android:textColor="#6373c8"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="15dp" />
 
     <ImageView
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:id="@+id/imageView2"
-        android:layout_marginTop="38dp"
         android:src="@mipmap/ic_launcher"
-        android:layout_below="@+id/settings_list"
+        android:layout_above="@+id/vName"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -41,10 +41,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/app_name"
         android:id="@+id/vName"
-        android:layout_below="@+id/imageView2"
+        android:textColor="#fff"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:textColor="#fff" />
+        android:layout_marginBottom="39dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,11 +52,36 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/about"
         android:id="@+id/textView8"
-        android:textColor="#6373c8"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="15dp"
-        android:layout_below="@+id/settings_list"
+        android:layout_alignTop="@+id/imageView2"
         android:layout_alignLeft="@+id/settings_list"
         android:layout_alignStart="@+id/settings_list" />
 
+    <android.support.v7.widget.SwitchCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lightSwitch"
+        android:layout_gravity="right"
+        android:textColor="#fff"
+        android:layout_below="@+id/settings_list"
+        android:layout_alignLeft="@+id/settings_list"
+        android:layout_alignStart="@+id/settings_list"
+        android:layout_alignRight="@+id/imageView2"
+        android:layout_alignEnd="@+id/imageView2"
+        android:text="Light Theme" />
+
+    <android.support.v7.widget.SwitchCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/darkSwitch"
+        android:layout_gravity="right"
+        android:textColor="#fff"
+        android:text="Dark Theme"
+        android:layout_below="@+id/lightSwitch"
+        android:layout_alignLeft="@+id/lightSwitch"
+        android:layout_alignStart="@+id/lightSwitch"
+        android:layout_alignRight="@+id/lightSwitch"
+        android:layout_alignEnd="@+id/lightSwitch" />
 
 </RelativeLayout>

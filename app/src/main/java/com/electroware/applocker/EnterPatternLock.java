@@ -40,7 +40,6 @@ public class EnterPatternLock extends AppCompatActivity {
         }
         return text.toString();
     }
-
     MaterialLockView materialLockView;
     Context context;
     RelativeLayout re;
@@ -78,7 +77,6 @@ public class EnterPatternLock extends AppCompatActivity {
         saveState = new SaveState(this);
         appIconPattern.setImageDrawable(getAppIcon(app));
         appNamePattern.setText(getAppName(app));
-
         materialLockView = (MaterialLockView) findViewById(R.id.enterPatternLockView);
         re = (RelativeLayout) findViewById(R.id.re);
         materialLockView.setOnPatternListener(new MaterialLockView.OnPatternListener() {
@@ -113,7 +111,6 @@ public class EnterPatternLock extends AppCompatActivity {
             }
         });
     }
-
     @Override
     public void onDestroy() {
         if (mAdView != null) {

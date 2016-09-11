@@ -51,12 +51,9 @@ public class EnterNormalPIN extends AppCompatActivity {
         }catch (Exception e){
 
         }
-
         pin_enter = (EditText) findViewById(R.id.pin_enter);
-
         appIconIv = (ImageView) findViewById(R.id.appIconPIN);
         appNameTv = (TextView) findViewById(R.id.appNameTv);
-
         one = (Button) findViewById(R.id.one);
         two = (Button) findViewById(R.id.two);
         three = (Button) findViewById(R.id.three);

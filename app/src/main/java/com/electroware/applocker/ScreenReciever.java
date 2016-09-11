@@ -13,12 +13,11 @@ public class ScreenReciever extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
-            Log.i("Check", "Screen went OFF");
+            Log.i("applocker", "Screen went OFF");
             stopLockService(context);
         } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
-            Log.i("Check", "Screen went ON");
+            Log.i("applocker", "Screen went ON");
             startLockService(context);
-
         }
     }
     private void startLockService(Context context){
