@@ -8,8 +8,8 @@ android {
         applicationId "com.electroware.applocker"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 108
-        versionName "1.0.8"
+        versionCode 120
+        versionName "1.2.0"
     }
     buildTypes {
         release {
@@ -28,8 +28,12 @@ dependencies {
     compile 'com.balysv:material-ripple:1.0.2'
     compile 'com.scottyab:aescrypt:0.0.1'
     compile 'com.github.ajalt.reprint:core:2.8.0@aar'
+    compile 'com.google.firebase:firebase-core:9.4.0'
     compile 'com.github.ajalt.reprint:reprint_spass:2.8.0@aar'
     compile 'com.github.ajalt.reprint:reactive:2.8.0@aar'
     compile 'me.zhanghai.android.materialprogressbar:library:1.1.7'
+    compile 'com.google.firebase:firebase-analytics:9.4.0'
     compile 'com.google.android.gms:play-services-ads:9.4.0'
+    compile 'com.android.support:cardview-v7:24.2.0'
 }
+apply plugin: 'com.google.gms.google-services'

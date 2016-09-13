@@ -18,6 +18,8 @@
     <string name="logs">Logs</string>
     <string name="settings">Settings</string>
     <string name="reset_locked_apps">Reset Locked Apps</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="light_theme">Light Theme</string>
     <string name="reset_password">Reset Password</string>
     <string name="all_apps_locked">All apps locked</string>
     <string name="all_apps_unlocked">All apps unlocked</string>

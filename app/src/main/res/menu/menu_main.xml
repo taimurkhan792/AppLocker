@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.electroware.applocker.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/stop_lock_service"
         android:orderInCategory="100"
         android:title="a"
         app:showAsAction="never" />

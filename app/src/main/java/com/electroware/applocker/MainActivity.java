@@ -3,7 +3,13 @@ package com.electroware.applocker;
 /**
  * Created by user on 30.08.2016.
  */
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import android.Manifest;
 import android.app.ActivityManager;
@@ -23,17 +29,15 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
@@ -41,14 +45,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private List<ApplicationInfo> applist = null;
     private ApplicationAdapter listadaptor = null;
     private static final int REQUEST_CAMERA_PERMISSION = 200;
-    TextView goSettings;
+    Button goSettings;
     ListView listApps;
     Context context;
     Button go_AndroBooster,goPerms,lockAll,unlockAll,goLogs;
-    InterstitialAd mInterstitialAd;
+
     MaterialProgressBar loadingBar;
     ColorManager colorManager;
     RelativeLayout mainLayout;
+    private FirebaseAnalytics mFirebaseAnalytics;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setSupportActionBar(toolbar);
         mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
         packageManager = getPackageManager();
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         listApps = (ListView) findViewById(R.id.listApps);
         go_AndroBooster = (Button) findViewById(R.id.go_booster);
         goPerms = (Button) findViewById(R.id.goPerms);
@@ -67,12 +74,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         unlockAll = (Button) findViewById(R.id.unlock_all);
         loadingBar = (MaterialProgressBar) findViewById(R.id.loadingBar);
         goLogs = (Button) findViewById(R.id.goLogs);
-        goSettings = (TextView) findViewById(R.id.lockSettings);
+        goSettings = (Button) findViewById(R.id.lockSettings);
         listApps.setItemsCanFocus(true);
 
-        if(!isMyServiceRunning(LockService.class)){
-            context.startService(new Intent(context, LockService.class));
-        }
+        mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
+
+        startLockService();
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -81,23 +88,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 startReqUsageStat();
             }
         }, 3000);
-
-        mInterstitialAd = new InterstitialAd(this);
-
-
-                mInterstitialAd.setAdUnitId("ca-app-pub-4481645276167910/8991689789");
-
-                AdRequest adRequest = new AdRequest.Builder()
-                        .build();
-
-                mInterstitialAd.loadAd(adRequest);
-
-                mInterstitialAd.setAdListener(new AdListener() {
-                    public void onAdLoaded() {
-                        showInterstitial();
-                    }
-                });
-
 
 
         lockAll.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         go_AndroBooster.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               startApplication("com.emre.androbooster");
+                startApplication("com.emre.androbooster");
             }
         });
         goSettings.setOnClickListener(new View.OnClickListener() {
@@ -165,7 +155,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 new LoadApplications().execute();
             }
         }, 1500);
-        updateTheme();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -180,13 +169,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
     }
-    private void updateTheme(){
-        if (colorManager.isLight()){
-            mainLayout.setBackgroundColor(getColor(R.color.white));
-        }
-    }
     private void startLockService() {
-        context.startService(new Intent(context, LockService.class));
+        if (!isMyServiceRunning(LockService.class)){
+            context.startService(new Intent(context, LockService.class));
+        }
     }
     private void stopLockService() {
         context.stopService(new Intent(context, LockService.class));
@@ -227,12 +213,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             showInMarket(packageName);
         }
     }
-    private void showInterstitial() {
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        }
-    }
+    public String getPattern() {
+        File file = new File("/data/data/com.electroware.applocker/files/pattern");
+        StringBuilder text = new StringBuilder();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
 
+            while ((line = br.readLine()) != null) {
+                text.append(line);
+            }
+            br.close();
+        } catch (IOException e) {
+            Log.d("okuma hatası", "no 1");
+        }
+        return text.toString();
+    }
     private void launchComponent(String packageName, String name)
     {
         Intent intent = new Intent("android.intent.action.MAIN");
@@ -313,17 +309,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onDestroy() {
         super.onDestroy();
+        startLockService();
     }
     private List<ApplicationInfo> checkForLaunchIntent(List<ApplicationInfo> list) {
         ArrayList<ApplicationInfo> applist = new ArrayList<ApplicationInfo>();
         for (ApplicationInfo info : list) {
             try {
-                if (!info.packageName.equals("com.electroware.applocker")) {
-                    if (!info.packageName.contains("launcher3")) {
-                        if (!info.packageName.contains("launcher")) {
-                            if (!info.packageName.contains("trebuchet")) {
-                                if (null != packageManager.getLaunchIntentForPackage(info.packageName)) {
-                                     applist.add(info);
+
+                if (!info.packageName.equals("com.google.android.googlequicksearchbox")) {
+                    if (!info.packageName.equals("com.electroware.applocker")) {
+                        if (!info.packageName.contains("launcher3")) {
+                            if (!info.packageName.contains("launcher")) {//com.google.android.googlequicksearchbox
+                                if (!info.packageName.contains("trebuchet")) {
+                                    if (null != packageManager.getLaunchIntentForPackage(info.packageName)) {
+                                        applist.add(info);
+                                    }
                                 }
                             }
                         }

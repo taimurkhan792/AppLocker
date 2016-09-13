@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1092023670877",
+    "firebase_url": "https://applocker-3ab3a.firebaseio.com",
+    "project_id": "applocker-3ab3a",
+    "storage_bucket": "applocker-3ab3a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092023670877:android:fbb90e44aa84feae",
+        "android_client_info": {
+          "package_name": "com.electroware.applocker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1092023670877-379ohuma7ddqdbiocsu1tgkfapoqtja1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS9kBXpqkf6eyb5YfzmUKCq4u-Xhd1E_k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

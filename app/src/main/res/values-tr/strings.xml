@@ -15,6 +15,8 @@
     <string name="date">Tarih</string>
     <string name="entered_successfully">Giriş başarılı</string>
     <string name="enter_failed">Yanlış şifre</string>
+    <string name="dark_theme">Kapalı Tema</string>
+    <string name="light_theme">Açık Tema</string>
     <string name="logs">Kayıtlar</string>
     <string name="entered_app">Uygulama:</string>
     <string name="reset_locked_apps">Kilitlenmiş uygulamaları sıfırla</string>

@@ -50,4 +50,16 @@ public class ColorManager {
             Log.e("Hata kodu3", "File write failed: " + e.toString());
         }
     }
+    public void resetColor(){
+        try {
+            String a ="";
+            FileOutputStream fOut = context.openFileOutput("color",  context.MODE_PRIVATE);
+            fOut.write(a.getBytes());
+            fOut.flush();
+            fOut.close();
+        }
+        catch (Exception e) {
+            Log.e("Hata kodu3", "File write failed: " + e.toString());
+        }
+    }
 }

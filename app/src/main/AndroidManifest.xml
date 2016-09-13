@@ -75,7 +75,7 @@
             android:name=".EnterNormalPIN"
             android:label="@string/app_name"
             android:excludeFromRecents="true"
-            android:theme="@style/AppThemeDark">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -92,7 +92,7 @@
             android:name=".EnterPatternLock"
             android:excludeFromRecents="true"
             android:label="@string/app_name"
-            android:theme="@style/AppThemeDark">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -146,9 +146,6 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
         <service android:name=".LockService"
-            android:enabled="true"/>
-        <service android:name=".ScreenService"
-            android:process=":screenlistener"
             android:enabled="true"/>
         <receiver
             android:name=".DeviceAdmin"

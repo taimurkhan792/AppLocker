@@ -12,8 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+
+import java.util.Random;
 
 /**
  * Created by user on 31.08.2016.
@@ -31,6 +35,7 @@ public class EnterNormalPIN extends AppCompatActivity {
     ImageView appIconIv;
     TextView appNameTv;
     SaveLogs saveLogs;
+    InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle bundle){
@@ -51,6 +56,36 @@ public class EnterNormalPIN extends AppCompatActivity {
         }catch (Exception e){
 
         }
+        Random drftgyhj = new Random();
+        int abcdefg = drftgyhj.nextInt(5) + 1;
+
+        if (abcdefg==3){
+            mInterstitialAd = new InterstitialAd(this);
+
+            mInterstitialAd.setAdUnitId("ca-app-pub-4481645276167910/8991689789");
+
+            mInterstitialAd.loadAd(adRequest);
+            mInterstitialAd.setAdListener(new AdListener() {
+                public void onAdLoaded() {
+                    showInterstitial();
+                }
+            });
+
+        }
+        if (abcdefg==5){
+            mInterstitialAd = new InterstitialAd(this);
+
+            mInterstitialAd.setAdUnitId("ca-app-pub-4481645276167910/8991689789");
+
+            mInterstitialAd.loadAd(adRequest);
+            mInterstitialAd.setAdListener(new AdListener() {
+                public void onAdLoaded() {
+                    showInterstitial();
+                }
+            });
+
+        }
+
         pin_enter = (EditText) findViewById(R.id.pin_enter);
         appIconIv = (ImageView) findViewById(R.id.appIconPIN);
         appNameTv = (TextView) findViewById(R.id.appNameTv);
@@ -171,6 +206,11 @@ public class EnterNormalPIN extends AppCompatActivity {
                 }
             }
         });
+    }
+    private void showInterstitial() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
     }
     @Override
     public void onPause() {

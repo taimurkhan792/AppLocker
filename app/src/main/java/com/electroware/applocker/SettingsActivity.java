@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
@@ -26,7 +27,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     ListView listemiz;
     Context context;
-    SwitchCompat darkSwitch,lightSwitch;
     TextView vName;
     RelativeLayout settings_layout;
     ColorManager colorManager;
@@ -36,40 +36,12 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.settings);
         context = SettingsActivity.this;
         listemiz=(ListView) findViewById(R.id.settings_list);
-        darkSwitch = (SwitchCompat) findViewById(R.id.darkSwitch);
         colorManager = new ColorManager(this);
         settings_layout = (RelativeLayout) findViewById(R.id.s_layout);
-        lightSwitch = (SwitchCompat) findViewById(R.id.lightSwitch);
-        lightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
-                    darkSwitch.setChecked(false);
-                    colorManager.changeColor(Statics.LIGHT);
-                }
-                if (!b){
-                    darkSwitch.setChecked(true);
-                    colorManager.changeColor(Statics.DARK);
-                }
-            }
-        });
-        darkSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
-                    lightSwitch.setChecked(false);
-                    colorManager.changeColor(Statics.DARK);
-                }
-                if (!b){
-                    lightSwitch.setChecked(true);
-                    colorManager.changeColor(Statics.LIGHT);
-                }
-            }
-        });
 
         vName = (TextView) findViewById(R.id.vName);
         String[] settings =
-                {context.getString(R.string.reset_password),context.getString(R.string.reset_locked_apps)};
+                {context.getString(R.string.reset_password),"Facebook",context.getString(R.string.reset_locked_apps)};
 
         vName.setText(getString(R.string.app_name)+" v"+GetVersion.getVersion(context));
 
@@ -82,33 +54,29 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-
                 if (position==0){
                     Intent i = new Intent(SettingsActivity.this,SetLockTypeActivity.class);
                     startActivity(i);
                 }
                 if (position==1){
-                    ManageLockedApps.resetLockedApps(context);
+                    Intent facebookIntent = getOpenFacebookIntent(context);
+                    startActivity(facebookIntent);
                 }
                 if (position==2){
                     ManageLockedApps.resetLockedApps(context);
                 }
             }
         });
-        updateTheme();
     }
-    private void updateTheme(){
-        if (colorManager.isLight()){
-            vName.setTextColor(getColor(R.color.black_gray));
-            darkSwitch.setTextColor(getColor(R.color.black_gray));
-            darkSwitch.setChecked(false);
-            lightSwitch.setChecked(true);
-            lightSwitch.setTextColor(getColor(R.color.black_gray));
-            settings_layout.setBackgroundColor(getColor(R.color.white));
-        }
-        if (!colorManager.isLight()){
-            darkSwitch.setChecked(true);
-            lightSwitch.setChecked(false);
+    private Intent getOpenFacebookIntent(Context context) {
+        try {
+            context.getPackageManager()
+                    .getPackageInfo("com.facebook.katana", 0);
+            return new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("fb://profile/274447682935043"));
+        } catch (Exception e) {
+            return new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://www.facebook.com/electrowaretech"));
         }
     }
 }

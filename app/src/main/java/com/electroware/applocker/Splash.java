@@ -58,14 +58,9 @@ public class Splash extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(Splash.this,SetLockTypeActivity.class);
                 i.putExtra("first","true");
-                startScreenService();
                 startActivity(i);
                 finish();
             }
         });
-    }
-    private void startScreenService() {
-        Intent i = new Intent(Splash.this, ScreenService.class);
-        startService(i);
     }
 }

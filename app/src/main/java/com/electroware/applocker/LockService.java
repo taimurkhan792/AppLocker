@@ -31,7 +31,7 @@ public class LockService extends Service {
     private String current_app = null;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
-    private int mInterval = 1000;
+    private int mInterval = 700;
     private Handler mHandler;
 
     @Override
@@ -41,7 +41,6 @@ public class LockService extends Service {
         startRepeatingTask();
         return START_STICKY;
     }
-
     Runnable mStatusChecker = new Runnable() {
         @Override
         public void run() {
@@ -52,6 +51,7 @@ public class LockService extends Service {
                     editor = preferences.edit();
                     saveState = new SaveState(context);
                     current_app = getRecentApps(context);
+                  //  Log.d("current app:",current_app);
                     boolean lock_apps = saveState.getState();
                     if (lock_apps){
                         if (preferences.getBoolean(current_app,false)){
@@ -60,7 +60,7 @@ public class LockService extends Service {
                         }
                     }
                     if (!lock_apps){
-                        if (!current_app.equals(locked_app)){
+                        if(!current_app.contains("com.electroware.applocker")&&!current_app.equals(locked_app)){
                             saveState.saveState("true");
                         }
                         if (current_app.equals(locked_app)){

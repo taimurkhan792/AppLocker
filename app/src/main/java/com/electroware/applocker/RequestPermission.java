@@ -80,8 +80,13 @@ public class RequestPermission extends AppCompatActivity {
         });
     }
     private void updateTheme(){
-        if (colorManager.isLight()){
-            reqLayout.setBackgroundColor(getColor(R.color.white));
+        if (colorManager.isLight()) {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                reqLayout.setBackgroundColor(getColor(R.color.white));
+            }
+            if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) {
+                reqLayout.setBackgroundColor(getResources().getColor(R.color.white));
+            }
         }
     }
     @Override

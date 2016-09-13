@@ -4,6 +4,8 @@ package com.electroware.applocker;
  * Created by user on 30.08.2016.
  */
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +14,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.Process;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,15 +35,16 @@ public class ApplicationAdapter extends ArrayAdapter<ApplicationInfo>{
     SharedPreferences.Editor editor;
 
     public ApplicationAdapter(Context context, int textViewResourceId,
-                              List<ApplicationInfo> appsList) {
-        super(context, textViewResourceId, appsList);
+                              List<ApplicationInfo> appList) {
+        super(context, textViewResourceId, appList);
         this.context = context;
         allAppList = new ArrayList<String>();
         colorManager = new ColorManager(context);
         lockedAppList = new ArrayList<String>();
-        this.appsList = appsList;
+        this.appsList = appList;
         packageManager = context.getPackageManager();
         preferences=context.getSharedPreferences("chosen_apps", context.MODE_PRIVATE);
+        Collections.sort(appsList, new ApplicationInfo.DisplayNameComparator(packageManager));
         editor = preferences.edit();
     }
 
@@ -71,12 +75,14 @@ public class ApplicationAdapter extends ArrayAdapter<ApplicationInfo>{
         }
         final ApplicationInfo data = appsList.get(position);
         if (null != data) {
-            TextView appName = (TextView) view.findViewById(R.id.app_name);
+
             ImageView iconview = (ImageView) view.findViewById(R.id.app_icon);
+            CardView cardViewApps = (CardView) view.findViewById(R.id.cardViewApps);
             final SwitchCompat lockApp = (SwitchCompat) view.findViewById(R.id.lockApp);
 
-            appName.setText(data.loadLabel(packageManager));
+            lockApp.setText(data.loadLabel(packageManager));
             iconview.setImageDrawable(data.loadIcon(packageManager));
+
 
 
             if(preferences.getBoolean(data.packageName,false)){
@@ -85,27 +91,26 @@ public class ApplicationAdapter extends ArrayAdapter<ApplicationInfo>{
             else{
                 lockApp.setChecked(false);
             }
-            if (colorManager.isLight()){
-                appName.setTextColor(context.getColor(R.color.black_gray));
-            }
-        lockApp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                context.stopService(new Intent(context, LockService.class));
-                if (lockApp.isChecked()){
-                    Log.d("tıklanmış",""+data.packageName);
-                    editor.putBoolean(data.packageName,true).apply();
+
+
+            lockApp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    context.stopService(new Intent(context, LockService.class));
+                    if (lockApp.isChecked()){
+                        Log.d("tıklanmış",""+data.packageName);
+                        editor.putBoolean(data.packageName,true).apply();
                     }
-                if (!lockApp.isChecked()){
-                    Log.d("silinmiş",""+data.packageName);
-                    editor.putBoolean(data.packageName,false).apply();
+                    if (!lockApp.isChecked()){
+                        Log.d("silinmiş",""+data.packageName);
+                        editor.putBoolean(data.packageName,false).apply();
                     }
-                context.startService(new Intent(context, LockService.class));
-            }
-        });
+                    context.startService(new Intent(context, LockService.class));
+                }
+            });
+        }
+        return view;
     }
-    return view;
-}
 
     private void startLockService() {
         context.startService(new Intent(context, LockService.class));

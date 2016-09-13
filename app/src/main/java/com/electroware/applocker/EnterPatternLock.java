@@ -12,13 +12,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.amnix.materiallockview.MaterialLockView;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Emre2 on 23.6.2016.
@@ -51,7 +56,9 @@ public class EnterPatternLock extends AppCompatActivity {
     boolean abc;
     SaveLogs saveLogs;
     int WRONG_PATTERN_COUNTER = 0;
+    private FirebaseAnalytics mFirebaseAnalytics;
     private AdView mAdView;
+    InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +78,37 @@ public class EnterPatternLock extends AppCompatActivity {
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
                 .build();
+
+        Random drftgyhj = new Random();
+        int abcdefg = drftgyhj.nextInt(5) + 1;
+
+        if (abcdefg==3){
+            mInterstitialAd = new InterstitialAd(this);
+
+            mInterstitialAd.setAdUnitId("ca-app-pub-4481645276167910/8991689789");
+
+            mInterstitialAd.loadAd(adRequest);
+            mInterstitialAd.setAdListener(new AdListener() {
+                public void onAdLoaded() {
+                    showInterstitial();
+                }
+            });
+
+        }
+        if (abcdefg==5){
+            mInterstitialAd = new InterstitialAd(this);
+
+            mInterstitialAd.setAdUnitId("ca-app-pub-4481645276167910/8991689789");
+
+            mInterstitialAd.loadAd(adRequest);
+            mInterstitialAd.setAdListener(new AdListener() {
+                public void onAdLoaded() {
+                    showInterstitial();
+                }
+            });
+
+        }
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mAdView.loadAd(adRequest);
         appIconPattern = (ImageView) findViewById(R.id.appIconPattern);
         appNamePattern = (TextView) findViewById(R.id.appNamePattern);
@@ -79,6 +117,7 @@ public class EnterPatternLock extends AppCompatActivity {
         appNamePattern.setText(getAppName(app));
         materialLockView = (MaterialLockView) findViewById(R.id.enterPatternLockView);
         re = (RelativeLayout) findViewById(R.id.re);
+        mFirebaseAnalytics.logEvent("app",b);
         materialLockView.setOnPatternListener(new MaterialLockView.OnPatternListener() {
             @Override
             public void onPatternStart() {
@@ -142,6 +181,11 @@ public class EnterPatternLock extends AppCompatActivity {
 
         }
     }
+    private void showInterstitial() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
+    }
     @Override
     protected void onPause() {
 
@@ -163,7 +207,6 @@ public class EnterPatternLock extends AppCompatActivity {
             startActivity(launchIntent);
         }
     }
-
     private String getAppName(String packagename) {
         PackageManager packageManager = getApplicationContext().getPackageManager();
         String appName = null;
